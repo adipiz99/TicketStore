@@ -53,7 +53,7 @@ App = {
         });
     },
 
-    createNFT: async (name, description, svg) => {
+    createNFT: async (name, description, json) => {
         let ticketInstance;
 
         await web3.eth.getAccounts(function(error, accounts) {
@@ -66,7 +66,7 @@ App = {
             App.contracts.Ticket.deployed().then(function(instance) {
                 ticketInstance = instance;
 
-                return ticketInstance.createToken(name, description, svg, { from: account });
+                return ticketInstance.createToken(name, description, json, { from: account });
             }).then(function(result) {
                 window.location.href = "./my-nft?action=created";
             }).catch(function(err) {
@@ -85,12 +85,12 @@ $(function() {
         $("#createNFT").click(async () => {            
             const name = $("#name").val();
             const description = $("#description").val();
-            const svg = value;
+            const json = value;
 
-            if (name == '' || description == '' || svg == '') {
+            if (name == '' || description == '' || json == '') {
                 toastr.error("Error in input fields...");
             } else {
-                await App.createNFT(name, description, svg);
+                await App.createNFT(name, description, json);
             }
 
         });

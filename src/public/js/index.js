@@ -148,7 +148,7 @@ const createItem = (result) => {
     const item = `<div class="col-sm-6 col-md-4 product-item animation-element slide-top-left">`
         + `<div class="product-container" style="height: 100%;padding-bottom: 0px;">`
         + `<div class="row">`
-  /*change*/ */      + `<div class="col-md-12"><img class="img-fluid" src="${result.image}" style="display: block;margin-left: auto;margin-right: auto"></div>`
+  /*change*/      + `<div class="col-md-12"><img class="img-fluid" src="${result.json}" style="display: block;margin-left: auto;margin-right: auto"></div>`
         + `</div>`
         + `<div class="row">`
         + `<div class="col-12">`
