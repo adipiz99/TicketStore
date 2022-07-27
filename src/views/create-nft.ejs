@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Create NFT</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="width: 100%;">
+
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><a class="navbar-brand logo" href="./">Drawing</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="./">NFT Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./my-nft"><strong>My NFT</strong><br></a></li>
+                    <li class="nav-item"><a class="nav-link disabled" href="./create-nft">Create NFT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="page hire-me-page">
+        <section class="portfolio-block hire-me" style="padding-top: 25px">
+            <div class="container">
+                <div class="heading" style="margin-bottom: 35px">
+                    <h2>upload new nft</h2>
+                </div>
+                <div class="mb-3"><label class="form-label" for="email">Name</label><input class="form-control" id="name" autocomplete="off" placeholder="Insert name..." name="name"></div>
+                <div class="mb-3"><label class="form-label" for="message">Description</label><textarea class="form-control" autocomplete="off" id="description" name="description" placeholder="Insert description..."></textarea></div>
+                <div class="mb-3"><label class="form-label" for="message">Upload SVG file</label><input class="form-control" autocomplete="off" id="svg" type="file" value="svg" onchange="PreviewText()" accept="image/svg+xml"></div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" id="createNFT" type="submit">CREATE</button></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.0/web3.min.js" integrity="sha512-C63V0mFzwl8KV2fRz0QJNKX0d9877urOLSUq5WUq8nUOhDl69hKdGr9mAvl57k47GNjqEMAtiufsvDnk7xs8+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/truffle-contract@4.0.31/dist/truffle-contract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/create-nft.js"></script>
+
+    <script>
+    function PreviewText() {
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("svg").files[0]);
+        oFReader.onload = function(oFREvent) {
+            value = oFREvent.target.result;
+        };
+    };
+    </script>
+
+</body>
+
+</html>

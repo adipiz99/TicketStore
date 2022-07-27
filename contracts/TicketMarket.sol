@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.11;
+pragma solidity >= 0.8.11;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract DrawingMarket is ReentrancyGuard {
+contract TicketMarket is ReentrancyGuard {
 
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
@@ -58,7 +58,7 @@ contract DrawingMarket is ReentrancyGuard {
 
         emit ItemCreated(itemId, nftContract, tokenId, msg.sender, address(0), price, false);
 
-        // Transfer NFT from creator to DrawingMarket contract
+        // Transfer NFT from creator to TicketMarket contract
         IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
  
     }
@@ -73,7 +73,7 @@ contract DrawingMarket is ReentrancyGuard {
 
         // Send money to seller
         _idToItem[itemId].seller.transfer(msg.value);
-        // Transfer NFT from DrawingMarket contract to buyer
+        // Transfer NFT from TicketMarket contract to buyer
         IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
 
         // Update item
