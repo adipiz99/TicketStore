@@ -14,10 +14,10 @@
 <body style="width: 100%;">
 
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
-        <div class="container"><a class="navbar-brand logo" href="./">Drawing</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand logo" href="./">TicketMarket</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="./">NFT Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./">Ticket NFT Market</a></li>
                     <li class="nav-item"><a class="nav-link" href="./my-nft"><strong>My NFT</strong><br></a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="./create-nft">Create NFT</a></li>
                 </ul>
@@ -28,12 +28,17 @@
         <section class="portfolio-block hire-me" style="padding-top: 25px">
             <div class="container">
                 <div class="heading" style="margin-bottom: 35px">
-                    <h2>upload new nft</h2>
+                    <h2>Create Ticket NFT</h2>
+                    <h3>Enter ticket data</h3>
                 </div>
-                <div class="mb-3"><label class="form-label" for="email">Name</label><input class="form-control" id="name" autocomplete="off" placeholder="Insert name..." name="name"></div>
-                <div class="mb-3"><label class="form-label" for="message">Description</label><textarea class="form-control" autocomplete="off" id="description" name="description" placeholder="Insert description..."></textarea></div>
-                <div class="mb-3"><label class="form-label" for="message">Upload SVG file</label><input class="form-control" autocomplete="off" id="svg" type="file" value="svg" onchange="PreviewText()" accept="image/svg+xml"></div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" id="createNFT" type="submit">CREATE</button></div>
+                <!--<form>-->
+                    <div class="mb-3"><label class="form-label" for="email">Name</label><input class="form-control" id="name" autocomplete="off" placeholder="Insert name..." name="name"></div>
+                    <div class="mb-3"><label class="form-label" for="message">Description</label><textarea class="form-control" autocomplete="off" id="description" name="description" placeholder="Insert description..."></textarea></div>
+                    <div class="mb-3"><label class="form-label" for="message">Event</label><input class="form-control" id="event" autocomplete="off" placeholder="Event type..." name="event"></div>
+                    <div class="mb-3"><label class="form-label" for="message">Artist</label><input class="form-control" id="artist" autocomplete="off" placeholder="Artist or group..." name="artist"></div>
+                    <div class="mb-3"><label class="form-label" for="message">Date</label><input class="form-control" type="date" id="date" autocomplete="off" placeholder="Event date..." name="date"></div>
+                    <div class="mb-3"><label class="form-label" for="message">Hour</label><input class="form-control" type="time" id="hour" autocomplete="off" placeholder="Event hour..." name="hour"></div>
+                    <div class="mb-3"><button class="btn btn-primary d-block w-100" id="createNFT" type="submit">CREATE</button></div>
                 </form>
             </div>
         </section>
@@ -47,16 +52,6 @@
 
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/create-nft.js"></script>
-
-    <script>
-    function PreviewText() {
-        const oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("svg").files[0]);
-        oFReader.onload = function(oFREvent) {
-            value = oFREvent.target.result;
-        };
-    };
-    </script>
 
 </body>
 

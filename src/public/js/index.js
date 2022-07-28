@@ -1,5 +1,4 @@
 App = {
-
     web3Provider: null,
     contracts: {},
 
@@ -37,9 +36,9 @@ App = {
             // Get the necessary contract artifact file and instantiate it with @truffle/contract
             const TicketArtifact = data;
             App.contracts.Ticket = TruffleContract(TicketArtifact);
-          
+
             // Set the provider for our contract
-            App.contracts.Ticket.setProvider(App.web3Provider);          
+            App.contracts.Ticket.setProvider(App.web3Provider);
         });
         await $.getJSON('../build/contracts/TicketMarket.json', function(data) {
             // Get the necessary contract artifact file and instantiate it with @truffle/contract
@@ -47,11 +46,12 @@ App = {
             App.contracts.TicketMarket = TruffleContract(TicketMarketArtifact);
           
             // Set the provider for our contract
-            App.contracts.TicketMarket.setProvider(App.web3Provider);          
+            App.contracts.TicketMarket.setProvider(App.web3Provider);
         });
     },
 
     getUnsoldItems: async () => {
+        console.log('getUnsoldItems');
         let ticketMarketInstance;
         let ticketInstance;
 
@@ -67,9 +67,11 @@ App = {
 
             App.contracts.Ticket.deployed().then(function(instance) {
                 ticketInstance = instance;
+                console.log('ticket instance');
                 
                 App.contracts.TicketMarket.deployed().then(async function(instance) {
                     ticketMarketInstance = instance;
+                    console.log('ticket instance');
     
                     try {
 
@@ -79,10 +81,17 @@ App = {
                                 const tokenId = item[2];
                                 const tokenURI = await ticketInstance.tokenURI(tokenId);
                                 const json = atob(tokenURI.substring(29));
-                                const result = JSON.parse(json);
-                                result.itemId = item[0];
-                                result.price = item[5];
-                                $("#items").append(createItem(result));
+                                console.log(json);
+                                const contentIndex = json.indexOf('ticketContent', 0) + 17;
+                                const jsonContent = json.substring(contentIndex, (json.length - 3));
+                                const content = JSON.parse(jsonContent);
+
+                                const prefix = json.substring(0, (contentIndex - 20)) + '}';
+                                const result = JSON.parse(prefix);
+                                console.log(result);
+                                console.log(content);
+                                result.tokenId = ids[index].words[0];
+                                $("#items").append(createItem(result, content));
                             }
                         } else {
                             $("#items").append("<p>There are currently no tokens for sale!</p>")
@@ -144,12 +153,9 @@ $(function() {
     });
 });
 
-const createItem = (result) => {
+const createItem = (result, content) => {
     const item = `<div class="col-sm-6 col-md-4 product-item animation-element slide-top-left">`
         + `<div class="product-container" style="height: 100%;padding-bottom: 0px;">`
-        + `<div class="row">`
-  /*change*/      + `<div class="col-md-12"><img class="img-fluid" src="${result.json}" style="display: block;margin-left: auto;margin-right: auto"></div>`
-        + `</div>`
         + `<div class="row">`
         + `<div class="col-12">`
         + `<h2 style="margin-top: 20px">${result.name}</h2>`
@@ -158,6 +164,18 @@ const createItem = (result) => {
         + `<div class="row">`
         + `<div class="col-12">`
         + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${result.description}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.event}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.artist}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.date}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.hour}</p>`
         + `</div>`
         + `</div>`
         + `<div class="row">`
@@ -167,7 +185,9 @@ const createItem = (result) => {
         + `</div>`
         + `</div>`
         + `</div>`
+        + `</div>`
     return item;
+    
 }
 
 async function buy(itemId, price) {

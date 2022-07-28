@@ -85,10 +85,16 @@ $(function() {
         $("#createNFT").click(async () => {            
             const name = $("#name").val();
             const description = $("#description").val();
-            const json = value;
+            const event = $("#event").val();
+            const artist = $("#artist").val();
+            const date = $("#date").val();
+            const hour= $("#hour").val();
 
-            if (name == '' || description == '' || json == '') {
-                toastr.error("Error in input fields...");
+            const json = JSON.stringify({ event: event, artist: artist, date: date, hour: hour });
+            console.log(json);
+
+            if (name == '' || description == '' || event == '' || artist == '' || date == '' || hour == '') {
+                toastr.error("Please fill all input fields...");
             } else {
                 await App.createNFT(name, description, json);
             }

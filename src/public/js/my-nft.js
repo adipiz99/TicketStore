@@ -76,9 +76,16 @@ App = {
                     const ids = results[1];
                     for (const [index, item] of Object.entries(items)) {
                         const json = atob(item.substring(29));
-                        const result = JSON.parse(json);
+                        console.log(json);
+
+                        const contentIndex = json.indexOf('ticketContent', 0) + 17;
+                        const jsonContent = json.substring(contentIndex, (json.length - 3));
+                        const content = JSON.parse(jsonContent);
+
+                        const prefix = json.substring(0, (contentIndex - 20)) + '}';
+                        const result = JSON.parse(prefix);
                         result.tokenId = ids[index].words[0];
-                        $("#items").append(createItem(result));
+                        $("#items").append(createItem(result, content));
                     }
                 } catch (error) {
                     console.log(error);
@@ -145,12 +152,9 @@ $(function() {
     });
 });
 
-const createItem = (result) => {
+const createItem = (result, content) => {
     const item = `<div class="col-sm-6 col-md-4 product-item animation-element slide-top-left">`
         + `<div class="product-container" style="height: 100%;padding-bottom: 0px;">`
-        + `<div class="row">`
-        /*Change*/ + `<div class="col-md-12"><img class="img-fluid" src="${result.json}" style="display: block;margin-left: auto;margin-right: auto"></div>`
-        + `</div>`
         + `<div class="row">`
         + `<div class="col-12">`
         + `<h2 style="color: rgb(78,115,225);margin-top: 20px">${result.name}</h2>`
@@ -159,6 +163,18 @@ const createItem = (result) => {
         + `<div class="row">`
         + `<div class="col-12">`
         + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${result.description}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.event}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.artist}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.date}</p>`
+        + `<div class="row">`
+        + `<div class="col-12">`
+        + `<p class="product-description" style="margin-top: 0px;margin-bottom: 10px">${content.hour}</p>`
         + `</div>`
         + `</div>`
         + `<div class="card shadow mb-4" style="margin-top: 12px;">`
