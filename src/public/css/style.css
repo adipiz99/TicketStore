@@ -1,3 +1,11 @@
+.navbar{
+  background: rgb(2,0,36);
+  background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,150,255,1) 0%, rgba(180,72,195,1) 100%, rgba(191,64,191,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,150,255,1) 0%, rgba(180,72,195,1) 100%, rgba(191,64,191,1) 100%);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,150,255,1) 0%, rgba(180,72,195,1) 100%, rgba(191,64,191,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#bf40bf",GradientType=1);
+}
+
 .product-list {
     overflow: hidden;
     -webkit-perspective: 1000px;
