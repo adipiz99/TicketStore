@@ -3,8 +3,8 @@ const { assert } = require('chai');
 const { BN, expectRevert, expectEvent, constants } = require('@openzeppelin/test-helpers')
 const ethers = require('ethers');
 
-const Drawing = artifacts.require('Ticket');
-const DrawingMarket = artifacts.require('TicketMarket');
+const Ticket = artifacts.require('Ticket');
+const TicketMarket = artifacts.require('TicketMarket');
 
 require('chai')
     .use(require('chai-as-promised'))
@@ -17,8 +17,8 @@ contract('Ticket', (accounts) => {
     let market;
 
     beforeEach(async () => {
-        market = await DrawingMarket.new({ from: accounts[0] });
-        contract = await Drawing.new({ from: accounts[0] });
+        market = await TicketMarket.new({ from: accounts[0] });
+        contract = await Ticket.new({ from: accounts[0] });
     })
 
     describe('deployment', async () => {
@@ -55,7 +55,7 @@ contract('Ticket', (accounts) => {
             const description = 'description';
             const json = 'json';
             const tokenURI = await contract.createTokenURI(name, description, json);
-            assert.equal(tokenURI, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUiLCAiZGVzY3JpcHRpb24iOiAiZGVzY3JpcHRpb24iLCAiYXR0cmlidXRlcyI6ICIiLCAiaW1hZ2UiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxhVzFoWjJVPSIgfQ==');
+            assert.equal(tokenURI, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUiLCAiZGVzY3JpcHRpb24iOiAiZGVzY3JpcHRpb24iLCAiYXR0cmlidXRlcyI6ICIiLCAidGlja2V0Q29udGVudCI6ICJqc29uIiB9');
         });
 
         it('createToken', async () => {
@@ -67,7 +67,7 @@ contract('Ticket', (accounts) => {
             assert.equal(1, tokenId);
             
             const tokenURI = await contract.tokenURI(1);
-            assert.equal(tokenURI, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUiLCAiZGVzY3JpcHRpb24iOiAiZGVzY3JpcHRpb24iLCAiYXR0cmlidXRlcyI6ICIiLCAiaW1hZ2UiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxhVzFoWjJVPSIgfQ==');    
+            assert.equal(tokenURI, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUiLCAiZGVzY3JpcHRpb24iOiAiZGVzY3JpcHRpb24iLCAiYXR0cmlidXRlcyI6ICIiLCAidGlja2V0Q29udGVudCI6ICJqc29uIiB9'); 
         });
 
     })
@@ -90,7 +90,7 @@ contract('Ticket', (accounts) => {
             assert.equal(1, tokenId);
             
             const tokenURI = await contract.tokenURI(1);
-            assert.equal(tokenURI, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUiLCAiZGVzY3JpcHRpb24iOiAiZGVzY3JpcHRpb24iLCAiYXR0cmlidXRlcyI6ICIiLCAiaW1hZ2UiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxhVzFoWjJVPSIgfQ==');    
+            assert.equal(tokenURI, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUiLCAiZGVzY3JpcHRpb24iOiAiZGVzY3JpcHRpb24iLCAiYXR0cmlidXRlcyI6ICIiLCAidGlja2V0Q29udGVudCI6ICJqc29uIiB9');  
             
             await expectRevert(
                 contract.getMyTokens({ from: accounts[1] }),
@@ -109,7 +109,7 @@ contract('Ticket', (accounts) => {
             assert.equal(1, tokenId1);
             
             const tokenURI1 = await contract.tokenURI(1);
-            assert.equal(tokenURI1, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUxIiwgImRlc2NyaXB0aW9uIjogImRlc2NyaXB0aW9uMSIsICJhdHRyaWJ1dGVzIjogIiIsICJpbWFnZSI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LGFXMWhaMlV4IiB9');
+            assert.equal(tokenURI1, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUxIiwgImRlc2NyaXB0aW9uIjogImRlc2NyaXB0aW9uMSIsICJhdHRyaWJ1dGVzIjogIiIsICJ0aWNrZXRDb250ZW50IjogImpzb24xIiB9');
             assert.equal(await contract.ownerOf(tokenId1), accounts[0]);
 
             // Create token2 by accounts[0]
@@ -121,7 +121,7 @@ contract('Ticket', (accounts) => {
             assert.equal(2, tokenId2);
             
             const tokenURI2 = await contract.tokenURI(2);
-            assert.equal(tokenURI2, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUyIiwgImRlc2NyaXB0aW9uIjogImRlc2NyaXB0aW9uMiIsICJhdHRyaWJ1dGVzIjogIiIsICJpbWFnZSI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LGFXMWhaMlV5IiB9');
+            assert.equal(tokenURI2, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUyIiwgImRlc2NyaXB0aW9uIjogImRlc2NyaXB0aW9uMiIsICJhdHRyaWJ1dGVzIjogIiIsICJ0aWNrZXRDb250ZW50IjogImpzb24yIiB9');
             assert.equal(await contract.ownerOf(tokenId2), accounts[0]);
 
             // Create token3 by accounts[1]
@@ -133,7 +133,7 @@ contract('Ticket', (accounts) => {
             assert.equal(3, tokenId3);
             
             const tokenURI3 = await contract.tokenURI(3);
-            assert.equal(tokenURI3, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUzIiwgImRlc2NyaXB0aW9uIjogImRlc2NyaXB0aW9uMyIsICJhdHRyaWJ1dGVzIjogIiIsICJpbWFnZSI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LGFXMWhaMlV6IiB9');
+            assert.equal(tokenURI3, 'data:application/json;base64,eyJuYW1lIjogIm5hbWUzIiwgImRlc2NyaXB0aW9uIjogImRlc2NyaXB0aW9uMyIsICJhdHRyaWJ1dGVzIjogIiIsICJ0aWNrZXRDb250ZW50IjogImpzb24zIiB9');
             assert.equal(await contract.ownerOf(tokenId3), accounts[1]);
 
             // Retrive tokens owned by accounts[0]
