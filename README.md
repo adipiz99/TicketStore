@@ -1,2 +1,2 @@
 # TicketStore
-## Project work for the exam "Sicurezza dei Dati"
+Project work for the exam "Sicurezza dei Dati"
